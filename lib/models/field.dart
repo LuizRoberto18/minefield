@@ -16,6 +16,7 @@ class Field {
     required this.column,
   });
 
+  //adicionando vizinho
   void addNeighbor(Field neighbor) {
     final deltaLine = (line - neighbor.line).abs();
     final deltaColumn = (line - neighbor.column).abs();
@@ -29,6 +30,7 @@ class Field {
     }
   }
 
+  //abrir uma bomba
   void opening() {
     if (_open) {
       return;
@@ -39,22 +41,25 @@ class Field {
       throw ExplosionException();
     }
     if (safeNeighborhood) {
-      neighbors.forEach((neighbor) => neighbor._open);
+      neighbors.forEach((neighbor) => neighbor.opening());
     }
   }
 
+  //revelando as bombas
   void revealBombs() {
     if (_undermined) {
       _open = true;
     }
   }
 
+  //confirmar qeue o campo está minado
   void undermine() {
     _undermined = true;
   }
 
+  //alternar se está marcado
   void changeMarking() {
-    _undermined = !_undermined;
+    _marked = !_marked;
   }
 
   void restart() {
@@ -64,6 +69,7 @@ class Field {
     _exploded = false;
   }
 
+  //campo minado
   bool get undermined {
     return _undermined;
   }
@@ -72,6 +78,7 @@ class Field {
     return _exploded;
   }
 
+  //abrir campo
   bool get open {
     return _open;
   }
@@ -80,12 +87,14 @@ class Field {
     return _marked;
   }
 
+  //csaber se o campo foi resolvido e todas as opções estiverem verdadeiras
   bool get resolved {
     bool underminedAndMarked = marked && undermined;
     bool safeAndOpen = !undermined && open;
     return underminedAndMarked || safeAndOpen;
   }
 
+  //saber se os campos vizinhos não tem bomboas
   bool get safeNeighborhood {
     return neighbors.every((neighbor) => !neighbor._undermined);
   }
