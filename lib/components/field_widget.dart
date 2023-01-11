@@ -26,18 +26,15 @@ class FieldWidget extends StatelessWidget {
 
   Widget _getImage() {
     int qtdeMinas = field.numberOfMinesInTheNeighborhood;
-    if(field.open && field.undermined && field.exploded){
+    if (field.open && field.undermined && field.exploded) {
       return Image.asset("assets/images/bomba_0.jpeg");
-    }else if(field.open && field.undermined ){
+    } else if (field.open && field.undermined) {
       return Image.asset("assets/images/bomba_1.jpeg");
-    }else if(field.open && qtdeMinas > 0 ){
+    } else if (field.open) {
       return Image.asset("assets/images/aberto_$qtdeMinas.jpeg");
-    }else if(field.open){
-      return Image.asset("assets/images/bomba_0.jpeg");
-    }else if(field.undermined){
+    } else if (field.marked) {
       return Image.asset("assets/images/bandeira.jpeg");
-    }
-    else{
+    } else {
       return Image.asset("assets/images/fechado.jpeg");
     }
   }

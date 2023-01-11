@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'field.dart';
-import 'package:flutter/foundation.dart';
 
 class Board {
   final int lines;
@@ -21,17 +20,21 @@ class Board {
   }
 
   void restart() {
-    _fields.forEach((field) => field.restart());
+    for (var field in _fields) {
+      field.restart();
+    }
     _raffleMines();
   }
 
   void revealBombs() {
-    _fields.forEach((field) => field.revealBombs());
+    for (var field in _fields) {
+      field.revealBombs();
+    }
   }
 
   void _createField() {
     for (int l = 0; l < lines; l++) {
-      for (int c = 0; c < lines; c++) {
+      for (int c = 0; c < columns; c++) {
         _fields.add(Field(line: l, column: c));
       }
     }
@@ -47,7 +50,7 @@ class Board {
 
   void _raffleMines() {
     int raffles = 0;
-    if (amountOfBombs < lines * columns) {
+    if (amountOfBombs > lines * columns) {
       return;
     }
     while (raffles < amountOfBombs) {

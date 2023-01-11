@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'explosion_exception.dart';
 
 class Field {
@@ -41,7 +40,9 @@ class Field {
       throw ExplosionException();
     }
     if (safeNeighborhood) {
-      neighbors.forEach((neighbor) => neighbor.opening());
+      for (var neighbor in neighbors) {
+        neighbor.opening();
+      }
     }
   }
 

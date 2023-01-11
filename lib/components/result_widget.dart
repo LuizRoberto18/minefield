@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ResultWidget extends StatelessWidget implements PreferredSizeWidget {
-  final bool win;
-  final Function onRestart;
+  final bool? win;
+  final Function()? onRestart;
 
   const ResultWidget({
     Key? key,
@@ -15,28 +15,29 @@ class ResultWidget extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       color: Colors.grey,
       child: SafeArea(
-          child: Container(
-        padding: const EdgeInsets.all(10),
-        child: CircleAvatar(
-          backgroundColor: _getColor(),
-          child: IconButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: onRestart(),
-            icon: Icon(
-              _getIcon(),
-              color: Colors.black,
-              size: 35,
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: CircleAvatar(
+            backgroundColor: _getColor(),
+            child: IconButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: onRestart,
+              icon: Icon(
+                _getIcon(),
+                color: Colors.black,
+                size: 35,
+              ),
             ),
           ),
         ),
-      )),
+      ),
     );
   }
 
   IconData _getIcon() {
     if (win == null) {
       return Icons.sentiment_satisfied;
-    } else if (win) {
+    } else if (win!) {
       return Icons.sentiment_very_satisfied;
     } else {
       return Icons.sentiment_very_dissatisfied;
@@ -46,7 +47,7 @@ class ResultWidget extends StatelessWidget implements PreferredSizeWidget {
   Color _getColor() {
     if (win == null) {
       return Colors.yellow;
-    } else if (win) {
+    } else if (win!) {
       return Colors.green.shade300;
     } else {
       return Colors.red.shade300;
